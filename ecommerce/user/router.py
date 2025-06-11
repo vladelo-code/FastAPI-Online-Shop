@@ -22,4 +22,8 @@ async def create_user_registration(request: shema.User, database: Session = Depe
 
 @router.get('/', response_model=List[shema.DisplayUser])
 async def get_all_users(database: Session = Depends(db.get_db)):
-    return await services.all_users(db_session=database)
+    return await services.all_users(database=database)
+
+@router.get('/{user_id}', response_model=shema.DisplayUser)
+async def get_user_by_id(user_id: int, database: Session = Depends(db.get_db)):
+    return await services.get_user_by_id(user_id=user_id, database=database)
