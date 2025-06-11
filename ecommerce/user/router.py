@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 
@@ -17,3 +19,7 @@ async def create_user_registration(request: shema.User, database: Session = Depe
     new_user = await services.new_user_register(request=request, database=database)
 
     return new_user
+
+@router.get('/', response_model=List[shema.DisplayUser])
+async def get_all_users(database: Session = Depends(db.get_db)):
+    return await services.all_users(db_session=database)
