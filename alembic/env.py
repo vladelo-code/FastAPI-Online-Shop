@@ -1,7 +1,5 @@
 from __future__ import with_statement
-
 from logging.config import fileConfig
-
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
@@ -13,20 +11,15 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-# target_metadata = None
-
 from ecommerce import config as config_env
-from ecommerce.user import models
 from ecommerce.db import Base
-# from ecommerce.products.models import Category, Product  # noqa
+from ecommerce.user.models import User
+from ecommerce.products.models import Category, Product
+
 # from ecommerce.orders.models import Order, OrderDetails  # noqa
 # from ecommerce.cart.models import Cart, CartItems  # noqa
 
-target_metadata = models.Base.metadata
+target_metadata = Base.metadata
 
 
 # other values from the config, defined by the needs of env.py,
