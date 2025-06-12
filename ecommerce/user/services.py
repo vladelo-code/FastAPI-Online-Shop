@@ -26,6 +26,6 @@ async def get_user_by_id(user_id, database) -> Optional[models.User]:
     return user_info
 
 
-async def delete_user_by_id(user_id, database):
+async def delete_user_by_id(user_id, database) -> None:
     database.query(models.User).filter(models.User.id == user_id).delete()
     database.commit()

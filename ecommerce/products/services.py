@@ -1,3 +1,7 @@
+from typing import List
+
+from fastapi import HTTPException
+
 from . import models
 
 
@@ -7,3 +11,20 @@ async def create_new_category(request, database) -> models.Category:
     database.commit()
     database.refresh(new_category)
     return new_category
+
+
+async def get_all_categories(database) -> List[models.Category]:
+    all_categories = database.query(models.Category).all()
+    return all_categories
+
+
+async def get_category_by_id(category_id, database) -> models.Category:
+    category_info = database.query(models.Category).get(category_id)
+    if not category_info:
+        raise HTTPException(status_code=404, detail="Category not found!")
+    return category_info
+
+
+async def delete_category_by_id(category_id, database) -> None:
+    database.query(models.Category).filter(models.Category.id == category_id).delete()
+    database.commit()
