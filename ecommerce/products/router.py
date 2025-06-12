@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from ecommerce import db
 from . import shema, services, validator
 
-router = APIRouter(tags=["Products"], prefix="/products")
+router = APIRouter(tags=["Categories & products"], prefix="/products")
 
 
 @router.post('/category', status_code=status.HTTP_201_CREATED)
@@ -44,3 +44,14 @@ async def create_product(request: shema.Product, database: Session = Depends(db.
 async def get_all_products(database: Session = Depends(db.get_db)):
     products = await services.get_all_products(database)
     return products
+
+
+@router.get('/{product_id}', response_model=shema.DisplayProduct)
+async def get_product_by_id(product_id: int, database: Session = Depends(db.get_db)):
+    product = await services.get_product_by_id(product_id, database)
+    return product
+
+
+@router.delete('/{product_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
+async def delete_product(product_id: int, database: Session = Depends(db.get_db)) -> None:
+    return await services.delete_product_by_id(product_id, database)

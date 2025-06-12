@@ -45,3 +45,15 @@ async def create_new_product(request, database) -> models.Product:
 async def get_all_products(database) -> List[models.Product]:
     all_products = database.query(models.Product).all()
     return all_products
+
+
+async def get_product_by_id(product_id, database) -> models.Product:
+    product_info = database.query(models.Product).get(product_id)
+    if not product_info:
+        raise HTTPException(status_code=404, detail="Product not found!")
+    return product_info
+
+
+async def delete_product_by_id(product_id, database) -> None:
+    database.query(models.Product).filter(models.Product.id == product_id).delete()
+    database.commit()
