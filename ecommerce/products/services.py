@@ -28,3 +28,16 @@ async def get_category_by_id(category_id, database) -> models.Category:
 async def delete_category_by_id(category_id, database) -> None:
     database.query(models.Category).filter(models.Category.id == category_id).delete()
     database.commit()
+
+
+async def create_new_product(request, database) -> models.Product:
+    new_product = models.Product(name=request.name,
+                                 quantity=request.quantity,
+                                 description=request.description,
+                                 price=request.price,
+                                 category_id=request.category_id
+                                 )
+    database.add(new_product)
+    database.commit()
+    database.refresh(new_product)
+    return new_product
