@@ -22,4 +22,4 @@ class Product(Base):
     description = Column(Text)
     price = Column(Float)
     category_id = Column(Integer, ForeignKey("category.id", ondelete="CASCADE"))
-    category = relationship("Category", back_populates="product")
+    category = relationship("Category", back_populates="products")
