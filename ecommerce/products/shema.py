@@ -24,5 +24,13 @@ class ProductBase(BaseModel):
     class Config:
         from_attributes = True
 
+
 class Product(ProductBase):
     category_id: int
+
+
+class DisplayProduct(ProductBase):
+    category: DisplayCategory
+
+    class Config:
+        from_attributes = True

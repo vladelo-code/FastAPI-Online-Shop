@@ -1,5 +1,4 @@
 from typing import List
-
 from fastapi import HTTPException
 
 from . import models
@@ -41,3 +40,8 @@ async def create_new_product(request, database) -> models.Product:
     database.commit()
     database.refresh(new_product)
     return new_product
+
+
+async def get_all_products(database) -> List[models.Product]:
+    all_products = database.query(models.Product).all()
+    return all_products

@@ -38,3 +38,9 @@ async def create_product(request: shema.Product, database: Session = Depends(db.
         raise HTTPException(status_code=404, detail="You have provided invalid category id!")
     new_product = await services.create_new_product(request, database)
     return new_product
+
+
+@router.get('/', response_model=List[shema.DisplayProduct])
+async def get_all_products(database: Session = Depends(db.get_db)):
+    products = await services.get_all_products(database)
+    return products
