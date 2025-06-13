@@ -5,10 +5,11 @@ from typing import List
 from ecommerce.cart.models import Cart, CartItems
 from ecommerce.orders.models import Order, OrderDetails
 from ecommerce.user.models import User
+from . import tasks
 
 
 async def initiate_order(database: Session):
-    user_info = database.query(User).filter(User.email == "vladlenchik@example.com").first()
+    user_info = database.query(User).filter(User.email == "vlad.lakhtion@gmail.com").first()
     cart = database.query(Cart).filter(Cart.user_id == user_info.id).first()
 
     cart_items_objects = database.query(CartItems).filter(Cart.id == cart.id)
@@ -19,7 +20,8 @@ async def initiate_order(database: Session):
     for item in cart_items_objects:
         total_amount += item.products.price
 
-    new_order = Order(order_amount=total_amount, customer_id=user_info.id, shipping_address='Moscow, Tverskay street, 1')
+    new_order = Order(order_amount=total_amount, customer_id=user_info.id,
+                      shipping_address='Moscow, Tverskay street, 1')
     database.add(new_order)
     database.commit()
     database.refresh(new_order)
@@ -32,7 +34,8 @@ async def initiate_order(database: Session):
     database.bulk_save_objects(bulk_order_details_objects)
     database.commit()
 
-    # Send Email (later)
+    # Sending Email
+    tasks.send_order_confirmation.delay('vlad.lakhtion@gmail.com')
 
     # Clear items in the cart
     database.query(CartItems).filter(CartItems.cart_id == cart.id).delete()
@@ -42,6 +45,6 @@ async def initiate_order(database: Session):
 
 
 async def get_order_listing(database: Session) -> List[Order]:
-    user_info = database.query(User).filter(User.email == "vladlenchik@example.com").first()
+    user_info = database.query(User).filter(User.email == "vlad.lakhtion@gmail.com").first()
     orders = database.query(Order).filter(Order.customer_id == user_info.id).all()
     return orders

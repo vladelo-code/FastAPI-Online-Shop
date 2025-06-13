@@ -1,7 +1,16 @@
+from dotenv import load_dotenv
 import os
 
-APP_ENV = os.getenv('APP_ENV', 'development')
-DATABASE_USERNAME = os.getenv('DATABASE_USERNAME', 'postgres')
-DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD', 'postgres')
-DATABASE_HOST = os.getenv('DATABASE_HOST', 'localhost')
-DATABASE_NAME = os.getenv('DATABASE_NAME', 'online_shop')
+load_dotenv()
+
+# PostgreSQL
+DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
+DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+DATABASE_HOST = os.getenv('DATABASE_HOST')
+DATABASE_NAME = os.getenv('DATABASE_NAME')
+
+# SMTP Yandex
+SMTP_HOST = os.getenv("SMTP_HOST")
+SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
