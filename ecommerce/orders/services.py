@@ -1,5 +1,6 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from typing import List
 
 from ecommerce.cart.models import Cart, CartItems
 from ecommerce.orders.models import Order, OrderDetails
@@ -18,7 +19,7 @@ async def initiate_order(database: Session):
     for item in cart_items_objects:
         total_amount += item.products.price
 
-    new_order = Order(order_amount=total_amount, shipping_address='Moscow, Tverskay street, 1')
+    new_order = Order(order_amount=total_amount, customer_id=user_info.id, shipping_address='Moscow, Tverskay street, 1')
     database.add(new_order)
     database.commit()
     database.refresh(new_order)
@@ -38,3 +39,9 @@ async def initiate_order(database: Session):
     database.commit()
 
     return new_order
+
+
+async def get_order_listing(database: Session) -> List[Order]:
+    user_info = database.query(User).filter(User.email == "vladlenchik@example.com").first()
+    orders = database.query(Order).filter(Order.customer_id == user_info.id).all()
+    return orders
