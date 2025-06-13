@@ -16,6 +16,7 @@ from ecommerce.db import Base
 from ecommerce.user.models import User
 from ecommerce.products.models import Category, Product
 from ecommerce.cart.models import Cart, CartItems
+from ecommerce.orders.models import Order, OrderDetails
 
 target_metadata = Base.metadata
 

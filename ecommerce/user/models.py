@@ -13,6 +13,7 @@ class User(Base):
     email = Column(String(255), unique=True)
     password = Column(String(255))
     cart = relationship("Cart", back_populates="user_cart")
+    order = relationship("Order", back_populates="user_info")
 
     def __init__(self, name, email, password, *args, **kwargs):
         self.name = name
@@ -20,4 +21,4 @@ class User(Base):
         self.password = hashing.get_password_hash(password)
 
     def check_password(self, password):
-        return hashing.check_password(self.password, password)
+        return hashing.verify_password(self.password, password)
