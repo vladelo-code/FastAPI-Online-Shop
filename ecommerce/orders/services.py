@@ -8,8 +8,8 @@ from ecommerce.user.models import User
 from . import tasks
 
 
-async def initiate_order(database: Session):
-    user_info = database.query(User).filter(User.email == "vlad.lakhtion@gmail.com").first()
+async def initiate_order(current_user, database: Session):
+    user_info = database.query(User).filter(User.email == current_user.email).first()
     cart = database.query(Cart).filter(Cart.user_id == user_info.id).first()
 
     cart_items_objects = database.query(CartItems).filter(Cart.id == cart.id)
@@ -35,7 +35,7 @@ async def initiate_order(database: Session):
     database.commit()
 
     # Sending Email
-    tasks.send_order_confirmation.delay('vlad.lakhtion@gmail.com')
+    tasks.send_order_confirmation.delay(current_user.email)
 
     # Clear items in the cart
     database.query(CartItems).filter(CartItems.cart_id == cart.id).delete()
@@ -44,7 +44,7 @@ async def initiate_order(database: Session):
     return new_order
 
 
-async def get_order_listing(database: Session) -> List[Order]:
-    user_info = database.query(User).filter(User.email == "vlad.lakhtion@gmail.com").first()
+async def get_order_listing(current_user, database: Session) -> List[Order]:
+    user_info = database.query(User).filter(User.email == current_user.email).first()
     orders = database.query(Order).filter(Order.customer_id == user_info.id).all()
     return orders

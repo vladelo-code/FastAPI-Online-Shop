@@ -15,7 +15,7 @@ async def add_items(cart_id, product_id, database: Session = Depends(db.get_db))
     database.refresh(cart_items)
 
 
-async def add_product_to_cart(product_id, database: Session = Depends(db.get_db)):
+async def add_product_to_cart(product_id, current_user, database: Session = Depends(db.get_db)):
     product_info = database.query(Product).get(product_id)
 
     if not product_info:
@@ -24,7 +24,7 @@ async def add_product_to_cart(product_id, database: Session = Depends(db.get_db)
     if product_info.quantity < 1:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item out of stock!")
 
-    user_info = database.query(User).filter(User.email == "vlad.lakhtion@gmail.com").first()
+    user_info = database.query(User).filter(User.email == current_user.email).first()
 
     cart_info = database.query(Cart).filter(Cart.user_id == user_info.id).first()
 
@@ -40,14 +40,14 @@ async def add_product_to_cart(product_id, database: Session = Depends(db.get_db)
     return {"status": "Item added to cart!"}
 
 
-async def get_all_items(database) -> shema.ShowCart:
-    user_info = database.query(User).filter(User.email == "vlad.lakhtion@gmail.com").first()
+async def get_all_items(current_user, database) -> shema.ShowCart:
+    user_info = database.query(User).filter(User.email == current_user.email).first()
     cart = database.query(Cart).filter(Cart.user_id == user_info.id).first()
     return cart
 
 
-async def remove_cart_item(cart_item_id, database) -> None:
-    user_info = database.query(User).filter(User.email == "vlad.lakhtion@gmail.com").first()
+async def remove_cart_item(cart_item_id, current_user, database) -> None:
+    user_info = database.query(User).filter(User.email == current_user.email).first()
     cart_id = database.query(Cart).filter(User.id == user_info.id).first()
     database.query(CartItems).filter(CartItems.id == cart_item_id, CartItems.cart_id == cart_id.id).delete()
     database.commit()

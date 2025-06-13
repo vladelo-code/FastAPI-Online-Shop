@@ -26,6 +26,7 @@ def verify_access_token(token: str, credentials_exception):
         if email is None:
             raise credentials_exception
         token_data = shema.TokenData(email=email)
+        return token_data
     except JWTError:
         raise credentials_exception
 

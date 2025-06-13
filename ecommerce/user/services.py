@@ -1,6 +1,5 @@
-from typing import List, Optional
-
 from fastapi import HTTPException, status
+from typing import List, Optional
 
 from . import models
 from . import shema
