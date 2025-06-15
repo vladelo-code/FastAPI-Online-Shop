@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Depends
+from typing import Optional
 
 from ecommerce import db
 from ecommerce.cart import shema
@@ -8,7 +9,7 @@ from ecommerce.user.models import User
 from ecommerce.cart.models import Cart, CartItems
 
 
-async def add_items(cart_id: int, product_id: int, database: Session = Depends(db.get_db)) -> None:
+async def add_items(cart_id, product_id, database: Session = Depends(db.get_db)) -> None:
     """
     Добавляет товар в корзину.
 
@@ -22,7 +23,7 @@ async def add_items(cart_id: int, product_id: int, database: Session = Depends(d
     database.refresh(cart_items)
 
 
-async def add_product_to_cart(product_id: int, current_user, database: Session = Depends(db.get_db)) -> dict:
+async def add_product_to_cart(product_id, current_user, database: Session = Depends(db.get_db)) -> dict:
     """
     Добавляет товар в корзину текущего пользователя.
     Если корзина отсутствует, создаётся новая.
@@ -57,14 +58,14 @@ async def add_product_to_cart(product_id: int, current_user, database: Session =
     return {"status": "Item added to cart!"}
 
 
-async def get_all_items(current_user, database: Session) -> shema.ShowCart:
+async def get_all_items(current_user, database: Session) -> Optional[shema.ShowCart]:
     """
     Получает корзину текущего пользователя.
 
     :param current_user: Текущий аутентифицированный пользователь с полем email.
     :param database: Сессия базы данных.
     :return: Объект корзины пользователя.
-    """adding docstring in defs in orders module
+    """
     user_info = database.query(User).filter(User.email == current_user.email).first()
     cart = database.query(Cart).filter(Cart.user_id == user_info.id).first()
     return cart
