@@ -32,4 +32,5 @@ async def product_info(category_obj: Category) -> Product:
     new_product = Product(**payload)
     database.add(new_product)
     database.commit()
-    return new_product
+    database.refresh(new_product)  # обязательно
+    return new_product.id

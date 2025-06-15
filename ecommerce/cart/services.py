@@ -16,7 +16,7 @@ async def add_items(cart_id, product_id, database: Session = Depends(db.get_db))
 
 
 async def add_product_to_cart(product_id, current_user, database: Session = Depends(db.get_db)):
-    product_info = database.query(Product).get(product_id)
+    product_info = database.get(Product, product_id)
 
     if not product_info:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found!")

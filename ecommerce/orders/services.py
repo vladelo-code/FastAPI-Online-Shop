@@ -10,9 +10,17 @@ from . import tasks
 
 async def initiate_order(current_user, database: Session):
     user_info = database.query(User).filter(User.email == current_user.email).first()
-    cart = database.query(Cart).filter(Cart.user_id == user_info.id).first()
+    if not user_info:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
-    cart_items_objects = database.query(CartItems).filter(Cart.id == cart.id)
+    cart = database.query(Cart).filter(Cart.user_id == user_info.id).first()
+    if not cart:
+        cart = Cart(user_id=user_info.id)
+        database.add(cart)
+        database.commit()
+        database.refresh(cart)
+
+    cart_items_objects = database.query(CartItems).filter(CartItems.cart_id == cart.id)
     if not cart_items_objects.count():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No items found in the cart!")
 
