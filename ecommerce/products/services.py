@@ -18,7 +18,7 @@ async def get_all_categories(database) -> List[models.Category]:
 
 
 async def get_category_by_id(category_id, database) -> models.Category:
-    category_info = database.query(models.Category).get(category_id)
+    category_info = database.get(models.Category, category_id)
     if not category_info:
         raise HTTPException(status_code=404, detail="Category not found!")
     return category_info

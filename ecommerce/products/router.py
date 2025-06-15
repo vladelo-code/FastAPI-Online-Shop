@@ -31,8 +31,8 @@ async def delete_category(category_id: int, database: Session = Depends(db.get_d
     return await services.delete_category_by_id(category_id, database)
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED)
-async def create_product(request: shema.Product, database: Session = Depends(db.get_db)):
+@router.post('/', status_code=status.HTTP_201_CREATED, response_model=shema.DisplayProduct)
+async def create_product(request: shema.ProductCreate, database: Session = Depends(db.get_db)):
     category = await validator.verify_category_exist(request.category_id, database)
     if not category:
         raise HTTPException(status_code=404, detail="You have provided invalid category id!")

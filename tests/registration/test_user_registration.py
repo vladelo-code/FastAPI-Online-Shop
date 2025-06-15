@@ -1,7 +1,6 @@
 import pytest
 from faker import Faker
-from httpx import AsyncClient
-from httpx import ASGITransport
+from httpx import AsyncClient, ASGITransport
 
 from conf_test_db import app
 
