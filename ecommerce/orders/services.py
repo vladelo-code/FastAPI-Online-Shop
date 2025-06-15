@@ -5,10 +5,23 @@ from typing import List
 from ecommerce.cart.models import Cart, CartItems
 from ecommerce.orders.models import Order, OrderDetails
 from ecommerce.user.models import User
-from . import tasks
+from ecommerce.orders import tasks
 
 
 async def initiate_order(current_user, database: Session):
+    """
+    Инициирует создание нового заказа для текущего пользователя.
+
+    Проверяет наличие пользователя и его корзины. Если корзина отсутствует,
+    создаётся новая. Подсчитывает общую сумму заказа, создаёт запись заказа
+    и детали заказа для каждого товара из корзины. Отправляет email с подтверждением
+    заказа асинхронно через Celery. Очищает корзину после создания заказа.
+
+    :param current_user: Объект текущего аутентифицированного пользователя с полем email.
+    :param database: Сессия SQLAlchemy для работы с БД.
+    :raises HTTPException: Если пользователь или товары в корзине не найдены.
+    :return: Объект созданного заказа (Order).
+    """
     user_info = database.query(User).filter(User.email == current_user.email).first()
     if not user_info:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -29,7 +42,7 @@ async def initiate_order(current_user, database: Session):
         total_amount += item.products.price
 
     new_order = Order(order_amount=total_amount, customer_id=user_info.id,
-                      shipping_address='Moscow, Tverskay street, 1')
+                      shipping_address='Москва, улица Тверская, дом 1')
     database.add(new_order)
     database.commit()
     database.refresh(new_order)
@@ -42,10 +55,10 @@ async def initiate_order(current_user, database: Session):
     database.bulk_save_objects(bulk_order_details_objects)
     database.commit()
 
-    # Sending Email
+    # Отправка Email покупателю об успешном заказе
     tasks.send_order_confirmation.delay(current_user.email)
 
-    # Clear items in the cart
+    # Очистка корзины (удаления всех позиций из нее)
     database.query(CartItems).filter(CartItems.cart_id == cart.id).delete()
     database.commit()
 
@@ -53,6 +66,13 @@ async def initiate_order(current_user, database: Session):
 
 
 async def get_order_listing(current_user, database: Session) -> List[Order]:
+    """
+    Получает список всех заказов текущего пользователя.
+
+    :param current_user: Объект текущего аутентифицированного пользователя с полем email.
+    :param database: Сессия SQLAlchemy для работы с БД.
+    :return: Список заказов (List[Order]) пользователя.
+    """
     user_info = database.query(User).filter(User.email == current_user.email).first()
     orders = database.query(Order).filter(Order.customer_id == user_info.id).all()
     return orders

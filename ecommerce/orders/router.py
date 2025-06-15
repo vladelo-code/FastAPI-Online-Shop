@@ -5,8 +5,8 @@ from typing import List
 from ecommerce import db
 from ecommerce.user.shema import User
 from ecommerce.auth import jwt
-from . import shema
-from . import services
+from ecommerce.orders import shema
+from ecommerce.orders import services
 
 router = APIRouter(tags=["Orders"], prefix="/orders")
 
