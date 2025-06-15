@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 import datetime
 from typing import Optional, List
 
@@ -10,8 +10,7 @@ class ShowOrderDetails(BaseModel):
     order_id: int
     product_order_details: DisplayProduct
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ShowOrder(BaseModel):
@@ -22,5 +21,4 @@ class ShowOrder(BaseModel):
     shipping_address: str
     order_details: List[ShowOrderDetails] = []
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

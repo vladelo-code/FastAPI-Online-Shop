@@ -1,4 +1,4 @@
-from pydantic import BaseModel, constr
+from pydantic import BaseModel, constr, ConfigDict
 from typing import Optional
 
 
@@ -10,8 +10,7 @@ class DisplayCategory(BaseModel):
     id: int
     name: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ProductBase(BaseModel):
@@ -21,8 +20,7 @@ class ProductBase(BaseModel):
     description: str
     price: float
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class Product(ProductBase):
@@ -32,5 +30,4 @@ class Product(ProductBase):
 class DisplayProduct(ProductBase):
     category: DisplayCategory
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
