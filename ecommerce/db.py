@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 
-from . import config
+from ecommerce import config
 
 DATABASE_USERNAME = config.DATABASE_USERNAME
 DATABASE_PASSWORD = config.DATABASE_PASSWORD

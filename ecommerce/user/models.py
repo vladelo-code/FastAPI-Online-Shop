@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from ecommerce.db import Base
 
-from . import hashing
+from ecommerce.user import hashing
 
 
 class User(Base):

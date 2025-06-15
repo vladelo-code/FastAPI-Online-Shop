@@ -4,14 +4,14 @@ from typing import List
 
 from ecommerce import db
 from ecommerce.auth import jwt
-from . import shema, services, validator
+from ecommerce.user import shema, services, validator
 
 router = APIRouter(tags=["Users"], prefix="/user")
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 async def create_user_registration(request: shema.User, database: Session = Depends(db.get_db)):
-    user = await validator.verify_email_exist(email=request.email, db_session=database)
+    user = await validator.verify_email_exist(email=request.email, db=database)
 
     if user:
         raise HTTPException(status_code=400, detail="This user with this email already exist in the system.")
