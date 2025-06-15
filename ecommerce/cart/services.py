@@ -8,14 +8,31 @@ from ecommerce.user.models import User
 from ecommerce.cart.models import Cart, CartItems
 
 
-async def add_items(cart_id, product_id, database: Session = Depends(db.get_db)):
+async def add_items(cart_id: int, product_id: int, database: Session = Depends(db.get_db)) -> None:
+    """
+    Добавляет товар в корзину.
+
+    :param cart_id: ID корзины, в которую добавляется товар.
+    :param product_id: ID добавляемого товара.
+    :param database: Сессия базы данных.
+    """
     cart_items = CartItems(cart_id=cart_id, product_id=product_id)
     database.add(cart_items)
     database.commit()
     database.refresh(cart_items)
 
 
-async def add_product_to_cart(product_id, current_user, database: Session = Depends(db.get_db)):
+async def add_product_to_cart(product_id: int, current_user, database: Session = Depends(db.get_db)) -> dict:
+    """
+    Добавляет товар в корзину текущего пользователя.
+    Если корзина отсутствует, создаётся новая.
+
+    :param product_id: ID добавляемого товара.
+    :param current_user: Текущий аутентифицированный пользователь с полем email.
+    :param database: Сессия базы данных.
+    :raises HTTPException: При отсутствии товара или отсутствии доступного количества.
+    :return: Словарь со статусом успешного добавления.
+    """
     product_info = database.get(Product, product_id)
 
     if not product_info:
@@ -40,13 +57,27 @@ async def add_product_to_cart(product_id, current_user, database: Session = Depe
     return {"status": "Item added to cart!"}
 
 
-async def get_all_items(current_user, database) -> shema.ShowCart:
+async def get_all_items(current_user, database: Session) -> shema.ShowCart:
+    """
+    Получает корзину текущего пользователя.
+
+    :param current_user: Текущий аутентифицированный пользователь с полем email.
+    :param database: Сессия базы данных.
+    :return: Объект корзины пользователя.
+    """adding docstring in defs in orders module
     user_info = database.query(User).filter(User.email == current_user.email).first()
     cart = database.query(Cart).filter(Cart.user_id == user_info.id).first()
     return cart
 
 
-async def remove_cart_item(cart_item_id, current_user, database) -> None:
+async def remove_cart_item(cart_item_id: int, current_user, database: Session) -> None:
+    """
+    Удаляет товар из корзины текущего пользователя.
+
+    :param cart_item_id: ID позиции в корзине, которую нужно удалить.
+    :param current_user: Текущий аутентифицированный пользователь с полем email.
+    :param database: Сессия базы данных.
+    """
     user_info = database.query(User).filter(User.email == current_user.email).first()
     cart_id = database.query(Cart).filter(User.id == user_info.id).first()
     database.query(CartItems).filter(CartItems.id == cart_item_id, CartItems.cart_id == cart_id.id).delete()
