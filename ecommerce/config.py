@@ -15,6 +15,11 @@ TEST_DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
 TEST_DATABASE_HOST = os.getenv('DATABASE_HOST')
 TEST_DATABASE_NAME = os.getenv('DATABASE_NAME')
 
+# Redis (для Celery)
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = int(os.getenv('REDIS_PORT'))
+REDIS_DB = int(os.getenv('REDIS_DB'))
+
 # SMTP Yandex
 SMTP_HOST = os.getenv("SMTP_HOST")
 SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
