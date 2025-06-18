@@ -1,15 +1,20 @@
-<p align="left">
-  <img src="https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python&logoColor=white&labelColor=101010&logoWidth=20&color=blue" alt="Python" />
-  <img src="https://img.shields.io/badge/FastAPI-0.115.12-009688?style=for-the-badge&logo=fastapi&logoColor=white&labelColor=101010&logoWidth=20" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/PostgreSQL-17-336791?style=for-the-badge&logo=postgresql&logoColor=white&labelColor=101010&logoWidth=20" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/Docker-container-2496ED?style=for-the-badge&logo=docker&logoColor=white&labelColor=101010&logoWidth=20" alt="Docker" />
-  <img src="https://img.shields.io/badge/Redis-broker-DC382D?style=for-the-badge&logo=redis&logoColor=white&labelColor=101010&logoWidth=20" alt="Redis" />
-  <img src="https://img.shields.io/badge/Celery-tasks-37814A?style=for-the-badge&logo=celery&logoColor=white&labelColor=101010&logoWidth=20" alt="Celery" />
-  <img src="https://img.shields.io/badge/SQLAlchemy-ORM-9E3F8F?style=for-the-badge&logo=alchemy&logoColor=white&labelColor=101010&logoWidth=20" alt="SQLAlchemy" />
-  <img src="https://img.shields.io/badge/Pydantic-validation-0066CC?style=for-the-badge&logo=pydantic&logoColor=white&labelColor=101010&logoWidth=20" alt="Pydantic" />
-  <img src="https://img.shields.io/badge/Alembic-migrations-92B300?style=for-the-badge&logo=alembic&logoColor=white&labelColor=101010&logoWidth=20" alt="Alembic" />
-  <img src="https://img.shields.io/badge/Pytest-tests-FF5F00?style=for-the-badge&logo=pytest&logoColor=white&labelColor=101010&logoWidth=20" alt="Pytest" />
-</p>
+## 🛠 Используемые технологии
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100.0-009688?logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-red?logo=sqlalchemy)
+![Alembic](https://img.shields.io/badge/Alembic-Migrations-8A2BE2)
+![Pydantic](https://img.shields.io/badge/Pydantic-Validation-3776AB)
+![Celery](https://img.shields.io/badge/Celery-TaskQueue-37814A?logo=celery)
+![Redis](https://img.shields.io/badge/Redis-Broker-DC382D?logo=redis)
+![Pytest](https://img.shields.io/badge/Pytest-Testing-0A9EDC?logo=pytest)
+![Docker](https://img.shields.io/badge/Docker-Container-2496ED?logo=docker)
+![HTTPX](https://img.shields.io/badge/httpx-AsyncClient-blueviolet)
+![Passlib](https://img.shields.io/badge/Passlib-Bcrypt-FF6F61)
+![OAuth2](https://img.shields.io/badge/Auth-OAuth2-blue)
+![JWT](https://img.shields.io/badge/JWT-Token-000000?logo=jsonwebtokens)
+![SMTP](https://img.shields.io/badge/SMTP-YandexMail-yellow)
 
 # 🛍️ FastAPI Online Shop
 
