@@ -1,3 +1,19 @@
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100.0-009688?logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-red?logo=sqlalchemy)
+![Alembic](https://img.shields.io/badge/Alembic-Migrations-8A2BE2)
+![Pydantic](https://img.shields.io/badge/Pydantic-Validation-3776AB)
+![Celery](https://img.shields.io/badge/Celery-TaskQueue-37814A?logo=celery)
+![Redis](https://img.shields.io/badge/Redis-Broker-DC382D?logo=redis)
+![Pytest](https://img.shields.io/badge/Pytest-Testing-0A9EDC?logo=pytest)
+![Docker](https://img.shields.io/badge/Docker-Container-2496ED?logo=docker)
+![HTTPX](https://img.shields.io/badge/httpx-AsyncClient-blueviolet)
+![Passlib](https://img.shields.io/badge/Passlib-Bcrypt-FF6F61)
+![OAuth2](https://img.shields.io/badge/Auth-OAuth2-blue)
+![JWT](https://img.shields.io/badge/JWT-Token-000000?logo=jsonwebtokens)
+![SMTP](https://img.shields.io/badge/SMTP-YandexMail-yellow)
+
 # 🛍️ FastAPI Online Shop
 
 FastAPI Online Shop — это полнофункциональное e-commerce API-приложение, построенное с использованием FastAPI, SQLAlchemy, PostgreSQL и Celery с Redis.
