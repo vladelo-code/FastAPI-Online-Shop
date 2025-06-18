@@ -1,6 +1,6 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100.0-009688?logo=fastapi)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115.12?logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17?logo=postgresql&logoColor=white)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-red?logo=sqlalchemy)
 ![Alembic](https://img.shields.io/badge/Alembic-Migrations-8A2BE2)
 ![Pydantic](https://img.shields.io/badge/Pydantic-Validation-3776AB)
