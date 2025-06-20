@@ -5,8 +5,6 @@ from ecommerce.user.models import User
 
 @pytest.fixture(autouse=True)
 def create_dummy_user(tmpdir):
-    """Fixture to execute asserts before and after a test is run"""
-    # Setup: fill with any logic you want
     from conf_test_db import override_get_db
     database = next(override_get_db())
     new_user = User(name='Vladelo', email='vladelo@gmail.com', password='vladelo123')
