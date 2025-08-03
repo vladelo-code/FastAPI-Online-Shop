@@ -12,7 +12,7 @@
 </p>
 
 # 🛍️ FastAPI Online Shop
-  
+
 FastAPI Online Shop — это полнофункциональное e-commerce API-приложение, построенное с использованием FastAPI,
 SQLAlchemy, PostgreSQL и Celery с Redis.
 
