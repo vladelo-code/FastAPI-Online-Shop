@@ -62,19 +62,71 @@ SQLAlchemy, PostgreSQL и Celery с Redis.
 ## 📂 Структура проекта
 
 ```
-ecommerce/
+FastAPI-Online-Shop/
+├── Dockerfile                  # Конфигурация Docker для контейнеризации приложения
+├── docker-compose.yml          # Оркестрация сервисов (БД, кеш, воркеры)
+├── README.md                   # Документация проекта
+├── requirements.txt            # Список зависимостей Python
+├── main.py                     # Точка входа FastAPI приложения
+├── conf_test_db.py             # Настройки тестовой БД
+├── Vladelo Online Shop.png     # Схематичное изображение проекта
 │
-├── auth/             # JWT и аутентификация
-├── cart/             # Модель и логика корзины
-├── orders/           # Обработка заказов + Celery
-├── products/         # Категории и продукты
-├── user/             # Модели и регистрация пользователя
-├── db.py             # Подключение к базе данных
-├── config.py         # Конфигурации проекта
+├── alembic/                    # Миграции базы данных
+│   ├── env.py
+│   ├── script.py.mako
+│   └── versions/               # Файлы версий миграций
 │
-├── tests/            # Автоматические тесты
+├── ecommerce/                  # Основной пакет приложения
+│   ├── __init__.py
+│   ├── config.py               # Настройки проекта
+│   ├── db.py                   # Инициализация SQLAlchemy и подключение к БД
+│   │
+│   ├── auth/                   # Аутентификация и авторизация
+│   │   ├── jwt.py              # JWT-токены
+│   │   ├── router.py           # Эндпоинты auth
+│   │   └── shema.py            # Pydantic-схемы для auth
+│   │
+│   ├── user/                   # Работа с пользователями
+│   │   ├── models.py
+│   │   ├── router.py
+│   │   ├── services.py         # Логика работы с пользователями
+│   │   ├── hashing.py
+│   │   ├── validator.py
+│   │   └── shema.py
+│   │
+│   ├── products/               # Каталог товаров
+│   │   ├── models.py
+│   │   ├── router.py
+│   │   ├── services.py
+│   │   ├── validator.py
+│   │   └── shema.py
+│   │
+│   ├── cart/                   # Корзина покупок
+│   │   ├── models.py
+│   │   ├── router.py
+│   │   ├── services.py
+│   │   └── shema.py
+│   │
+│   └── orders/                 # Заказы
+│       ├── models.py
+│       ├── router.py
+│       ├── services.py
+│       ├── tasks.py            # Асинхронные задачи (Celery)
+│       ├── worker.py           # Воркеры для задач
+│       ├── mail.py             # Отправка уведомлений
+│       └── shema.py
 │
-└── main.py           # Точка входа FastAPI
+├── docs/                       # Скриншоты и документация проекта
+│
+└── tests/                      # Тесты приложения
+    ├── conftest.py             # Общие фикстуры
+    ├── user/                   # Тесты для пользователей
+    ├── products/               # Тесты для товаров
+    ├── cart/                   # Тесты для корзины
+    ├── orders/                 # Тесты для заказов
+    ├── login/                  # Тесты логина
+    ├── registration/           # Тесты регистрации
+
 ```
 
 ## ⚙️ Установка и запуск
@@ -120,7 +172,8 @@ pytest
 ## 📬 **Контакты**
 
 Автор: Владислав Лахтионов  
-GitHub: [vladelo777](https://github.com/vladelo777)  
+GitHub: [vladelo-code](https://github.com/vladelo-code)  
+Gitverse: [vladelo](https://gitverse.ru/vladelo/)  
 Telegram: [@vladelo](https://t.me/vladelo)
 
 💌 Не забудьте поставить звезду ⭐ на GitHub, если вам понравился проект! 😉
