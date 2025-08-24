@@ -133,7 +133,7 @@ FastAPI-Online-Shop/
 
 ```bash
 # 1. Клонируй репозиторий
-git clone https://github.com/vladelo777/FastAPI-Online-Shop.git
+git clone https://github.com/vladelo-code/FastAPI-Online-Shop.git
 cd FastAPI-Online-Shop
 
 # 2. Создай виртуальное окружение
